@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#6F4E37">
+  <title>Admin Dashboard | Joyin Cafe</title>
+  <link rel="icon" href="./assets/logo/joyin-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-body">
+  <main class="admin-shell">
+    <section id="login-panel" class="admin-login-panel" aria-labelledby="login-title">
+      <a class="admin-brand" href="./index.html"><span class="brand-mark">J</span><span><strong>Joyin</strong><small>Cafe & Patisserie</small></span></a>
+      <p class="eyebrow">AREA TERBATAS</p>
+      <h1 id="login-title">Selamat datang kembali</h1>
+      <p class="muted">Masuk untuk mengelola menu dan melihat pesan pelanggan.</p>
+      <form id="login-form" class="admin-form">
+        <label for="login-email">Email admin</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" required placeholder="admin@contoh.com">
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required placeholder="Masukkan password">
+        <button class="btn btn-primary admin-submit" type="submit">Masuk dashboard <span aria-hidden="true">→</span></button>
+        <p id="login-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+      </form>
+      <a class="admin-back-link" href="./index.html">← Kembali ke website</a>
+    </section>
+
+    <section id="dashboard-panel" class="admin-dashboard" hidden>
+      <header class="admin-topbar">
+        <a class="admin-brand" href="./index.html"><span class="brand-mark">J</span><span><strong>Joyin</strong><small>Admin dashboard</small></span></a>
+        <div class="admin-user"><span id="admin-email"></span><button id="logout-button" class="btn btn-outline btn-small" type="button">Keluar</button></div>
+      </header>
+      <div class="admin-heading"><div><p class="eyebrow">PENGELOLAAN CAFE</p><h1>Dashboard</h1><p class="muted">Kelola produk dan periksa pesan pelanggan di sini.</p></div><a href="./menu.html" target="_blank" rel="noopener" class="btn btn-outline">Lihat menu ↗</a></div>
+      <nav class="admin-tabs" aria-label="Bagian dashboard">
+        <button class="admin-tab is-active" data-tab="products" type="button">Produk</button>
+        <button class="admin-tab" data-tab="categories" type="button">Kategori</button>
+        <button class="admin-tab" data-tab="reservations" type="button">Reservasi</button>
+        <button class="admin-tab" data-tab="messages" type="button">Pesan masuk</button>
+      </nav>
+      <p id="dashboard-feedback" class="dashboard-feedback" role="status" aria-live="polite"></p>
+
+      <section class="admin-section is-active" id="tab-products" aria-labelledby="products-title">
+        <div class="section-toolbar"><div><h2 id="products-title">Daftar produk</h2><p class="muted">Tambah, ubah, tampilkan, atau sembunyikan menu.</p></div><button id="add-product-button" class="btn btn-primary" type="button">＋ Tambah produk</button></div>
+        <form id="product-form" class="admin-card product-editor" hidden>
+          <div class="section-toolbar"><h3 id="product-form-title">Tambah produk baru</h3><button id="cancel-product-button" class="icon-button" type="button" aria-label="Tutup formulir">×</button></div>
+          <input id="product-id" type="hidden">
+          <div class="admin-field-grid">
+            <div><label for="product-name">Nama produk *</label><input id="product-name" required maxlength="120" placeholder="Contoh: Joyin Signature Latte"></div>
+            <div><label for="product-category">Kategori *</label><select id="product-category" required></select></div>
+            <div><label for="product-price">Harga (Rupiah) *</label><input id="product-price" type="number" min="0" step="500" required placeholder="28000"></div>
+            <div><label for="product-image">URL gambar</label><input id="product-image" type="url" placeholder="https://..."></div>
+            <div class="field-full"><label for="product-description">Deskripsi</label><textarea id="product-description" rows="3" maxlength="1000" placeholder="Deskripsi singkat produk..."></textarea></div>
+            <label class="admin-check"><input id="product-available" type="checkbox" checked> Tersedia untuk dipesan</label>
+            <label class="admin-check"><input id="product-featured" type="checkbox"> Tampilkan sebagai menu favorit</label>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Simpan produk</button><button id="cancel-product-button-2" class="btn btn-outline" type="button">Batal</button></div>
+        </form>
+        <div id="products-list" class="admin-table-wrap"><p class="muted">Memuat produk...</p></div>
+      </section>
+
+      <section class="admin-section" id="tab-categories" aria-labelledby="categories-title">
+        <div class="section-toolbar"><div><h2 id="categories-title">Kategori menu</h2><p class="muted">Kategori digunakan untuk filter di halaman menu.</p></div></div>
+        <form id="category-form" class="admin-card category-form"><div><label for="category-name">Nama kategori</label><input id="category-name" required maxlength="80" placeholder="Contoh: Seasonal Drinks"></div><div><label for="category-slug">Slug URL</label><input id="category-slug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="seasonal-drinks"></div><button class="btn btn-primary" type="submit">Tambah kategori</button></form>
+        <div id="categories-list" class="admin-table-wrap"><p class="muted">Memuat kategori...</p></div>
+      </section>
+
+      <section class="admin-section" id="tab-reservations" aria-labelledby="reservations-title">
+        <div class="section-toolbar"><div><h2 id="reservations-title">Reservasi pelanggan</h2><p class="muted">Data reservasi hanya terlihat oleh admin yang diizinkan.</p></div><button class="btn btn-outline" data-refresh="reservations" type="button">Muat ulang</button></div>
+        <div id="reservations-list" class="admin-table-wrap"><p class="muted">Klik tab untuk memuat data.</p></div>
+      </section>
+
+      <section class="admin-section" id="tab-messages" aria-labelledby="messages-title">
+        <div class="section-toolbar"><div><h2 id="messages-title">Pesan masuk</h2><p class="muted">Pesan dari formulir kontak website.</p></div><button class="btn btn-outline" data-refresh="messages" type="button">Muat ulang</button></div>
+        <div id="messages-list" class="admin-table-wrap"><p class="muted">Klik tab untuk memuat data.</p></div>
+      </section>
+      <footer class="admin-footer">Joyin Cafe & Patisserie · Area admin</footer>
+    </section>
+  </main>
+  <div id="admin-toast" class="admin-toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabase.js"></script>
+  <script src="./js/admin.js"></script>
+</body>
+</html>
